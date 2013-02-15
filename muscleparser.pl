@@ -1,8 +1,13 @@
 #!/usr/bin/perl -w
 use strict;
 use warnings;
+use Getopt::Std;
 
-my $file = 'eukaryota.fasta';
+my %opts = ();
+getopt('io', \%opts);
+my $file = $opts{i};
+my $alignedfile = $opts{o};
+
 my $sequence='';
 my $numsequence=0;
 my $name='';
@@ -37,7 +42,6 @@ my $mean = $totallength/$numsequence;
 print "total sequences: $numsequence\tmean length: $mean\n";
 
 
-my $alignedfile = 'eukaryota_aln.fasta';
 `muscle -in $file -out $alignedfile -log logfile.txt 2>output.txt`;
 
 my $y=0;
